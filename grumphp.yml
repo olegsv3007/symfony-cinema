@@ -1,0 +1,26 @@
+grumphp:
+  hooks_dir: ~
+  hooks_preset: local
+  git_hook_variables:
+    EXEC_GRUMPHP_COMMAND: 'docker exec -t resolventa_backend_internship_php-fpm_1 php'
+  fixer:
+    enabled: false
+  tasks:
+    composer: ~
+    phpcs:
+      standard: phpcs_custom_ruleset.xml
+      whitelist_patterns:
+        - /^src\/(.*)/
+        - /^tests\/(.*)/
+    phpcpd:
+      directory: ['src', 'tests']
+      exclude: []
+      fuzzy: false
+      triggered_by: [ 'php' ]
+    phpcsfixer:
+      config: '.php-cs-fixer.dist.php'
+      config_contains_finder: true
+      verbose: true
+      diff: true
+      triggered_by: [ 'php' ]
+

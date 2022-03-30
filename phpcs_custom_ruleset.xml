@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+<ruleset name="Standard">
+    <rule ref="PSR12">
+        <exclude name="Squiz.WhiteSpace.ScopeClosingBrace.ContentBefore"/>
+    </rule>
+
+
+    <!-- Generic sniff -->
+    <rule ref="Generic.PHP.ForbiddenFunctions">
+        <properties>
+            <property
+                name="forbiddenFunctions"
+                type="array"
+                value="
+                    mysql_fetch_assoc=>null,
+                    mysql_query=>null,
+                    mysql_connect=>null,
+                    dd=>null,
+                    die=>null,
+                    var_dump=>null,
+                    sizeof=>count,
+                    delete=>unset,
+                    create_function=>null,
+                    eval=>null,
+                    echo=>null,
+                    sleep=>null,
+                    dump=>null,
+                    exit=>null
+                "
+            />
+        </properties>
+    </rule>
+
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="170"/>
+            <property name="absoluteLineLimit" value="170"/>
+        </properties>
+    </rule>
+
+    <rule ref="Generic.Arrays.ArrayIndent">
+        <exclude name="Generic.Arrays.ArrayIndent.CloseBraceNotNewLine"/>
+    </rule>
+
+
+    <!-- Squiz sniff -->
+    <rule ref="Squiz.Strings.DoubleQuoteUsage"/>
+    <rule ref="Squiz.Strings.DoubleQuoteUsage.ContainsVar">
+        <severity>0</severity>
+    </rule>
+
+    <rule ref="Squiz.WhiteSpace.FunctionSpacing">
+        <properties>
+            <property name="spacing" value="1"/>
+            <property name="spacingBeforeFirst" value="0"/>
+            <property name="spacingAfterLast" value="0"/>
+        </properties>
+    </rule>
+    <rule ref="Squiz.WhiteSpace.OperatorSpacing">
+        <properties>
+            <property name="ignoreNewlines" value="true"/>
+        </properties>
+    </rule>
+
+
+    <!-- SlevomatCodingStandard sniff -->
+    <rule ref="vendor/slevomat/coding-standard/SlevomatCodingStandard">
+        <exclude name="SlevomatCodingStandard.Classes.ClassStructure"/>
+        <exclude name="SlevomatCodingStandard.Classes.DisallowConstructorPropertyPromotion"/>
+        <exclude name="SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces"/>
+        <exclude name="SlevomatCodingStandard.Classes.ForbiddenPublicProperty"/>
+        <exclude name="SlevomatCodingStandard.Classes.RequireSingleLineMethodSignature"/>
+        <exclude name="SlevomatCodingStandard.Classes.SuperfluousAbstractClassNaming"/>
+        <exclude name="SlevomatCodingStandard.Classes.SuperfluousExceptionNaming"/>
+        <exclude name="SlevomatCodingStandard.Classes.SuperfluousInterfaceNaming"/>
+        <exclude name="SlevomatCodingStandard.Classes.SuperfluousTraitNaming"/>
+        <exclude name="SlevomatCodingStandard.Classes.TraitUseSpacing"/>
+        <exclude name="SlevomatCodingStandard.Commenting.DisallowOneLinePropertyDocComment"/>
+        <exclude name="SlevomatCodingStandard.Commenting.DocCommentSpacing"/>
+        <exclude name="SlevomatCodingStandard.Commenting.RequireOneLineDocComment"/>
+        <exclude name="SlevomatCodingStandard.Commenting.UselessInheritDocComment"/>
+        <exclude name="SlevomatCodingStandard.ControlStructures.DisallowEmpty"/>
+        <exclude name="SlevomatCodingStandard.ControlStructures.DisallowNullSafeObjectOperator"/>
+        <exclude name="SlevomatCodingStandard.ControlStructures.DisallowShortTernaryOperator"/>
+        <exclude name="SlevomatCodingStandard.ControlStructures.DisallowShortTernaryOperator"/>
+        <exclude name="SlevomatCodingStandard.ControlStructures.NewWithoutParentheses"/>
+        <exclude name="SlevomatCodingStandard.ControlStructures.RequireMultiLineTernaryOperator"/>
+        <exclude name="SlevomatCodingStandard.ControlStructures.RequireYodaComparison"/>
+        <exclude name="SlevomatCodingStandard.Files.TypeNameMatchesFileName"/>
+        <exclude name="SlevomatCodingStandard.Functions.DisallowArrowFunction"/>
+        <exclude name="SlevomatCodingStandard.Functions.DisallowTrailingCommaInCall"/>
+        <exclude name="SlevomatCodingStandard.Functions.DisallowTrailingCommaInDeclaration"/>
+        <exclude name="SlevomatCodingStandard.Functions.RequireSingleLineCall"/>
+        <exclude name="SlevomatCodingStandard.Namespaces.AlphabeticallySortedUses"/>
+        <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameInAnnotation"/>
+        <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedExceptions"/>
+        <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalConstants"/>
+        <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalFunctions"/>
+        <exclude name="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly"/>
+        <exclude name="SlevomatCodingStandard.Namespaces.UseOnlyWhitelistedNamespaces"/>
+        <exclude name="SlevomatCodingStandard.Operators.DisallowIncrementAndDecrementOperators"/>
+        <exclude name="SlevomatCodingStandard.TypeHints.DeclareStrictTypes"/>
+        <exclude name="SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint"/>
+        <exclude name="SlevomatCodingStandard.Numbers.DisallowNumericLiteralSeparator"/>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.Classes.RequireMultiLineMethodSignature">
+        <properties>
+            <property name="minLineLength" value="170"/>
+        </properties>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.ControlStructures.RequireMultiLineCondition">
+        <properties>
+            <property name="minLineLength" value="170"/>
+        </properties>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.Files.LineLength">
+        <properties>
+            <property name="lineLengthLimit" value="170"/>
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.Files.FunctionLength">
+        <properties>
+            <property name="maxLinesLength" value="50"/>
+        </properties>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.Functions.RequireMultiLineCall">
+        <properties>
+            <property name="minLineLength" value="170"/>
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.Functions.FunctionLength">
+        <properties>
+            <property name="maxLinesLength" value="50"/>
+        </properties>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses">
+        <properties>
+            <property name="searchAnnotations" value="true"/>
+            <property name="ignoredAnnotations" type="array" value="@group"/>
+        </properties>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.Whitespaces.DuplicateSpaces">
+        <properties>
+            <property name="ignoreSpacesInAnnotation" value="true"/>
+        </properties>
+    </rule>
+</ruleset>

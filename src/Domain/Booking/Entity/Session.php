@@ -9,11 +9,12 @@ use App\Domain\Booking\Entity\ValueObject\PhoneNumber;
 use App\Domain\Booking\Entity\ValueObject\SessionId;
 use App\Domain\Booking\Entity\ValueObject\TicketId;
 use App\Domain\Booking\Exception\TicketsAreOverException;
+use App\Domain\Booking\Repository\SessionRepository;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass=SessionRepository::class)
  */
 final class Session
 {

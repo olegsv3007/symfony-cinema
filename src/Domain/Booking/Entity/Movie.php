@@ -4,14 +4,26 @@ namespace App\Domain\Booking\Entity;
 
 use App\Domain\Booking\Entity\ValueObject\Duration;
 use App\Domain\Booking\Entity\ValueObject\MovieId;
+use Doctrine\ORM\Mapping as ORM;
 
-class Movie
+/** @ORM\Entity() */
+final class Movie
 {
-    public function __construct(
-        private MovieId $id,
-        private string $name,
-        private Duration $duration,
-    ) { }
+    /** @ORM\Embedded(columnPrefix=false) */
+    private MovieId $id;
+
+    /** @ORM\Column() */
+    private string $name;
+
+    /** @ORM\Embedded() */
+    private Duration $duration;
+
+    public function __construct(MovieId $id, string $name, Duration $duration)
+    {
+        $this->id = $id;
+        $this->name = $name;
+        $this->duration = $duration;
+    }
 
     public function getId(): MovieId
     {

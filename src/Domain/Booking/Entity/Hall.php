@@ -3,13 +3,22 @@
 namespace App\Domain\Booking\Entity;
 
 use App\Domain\Booking\Entity\ValueObject\HallId;
+use Doctrine\ORM\Mapping as ORM;
 
-class Hall
+/** @ORM\Entity() */
+final class Hall
 {
-    public function __construct(
-        private HallId $id,
-        private int $totalSeats,
-    ) { }
+    /** @ORM\Embedded(columnPrefix=false) */
+    private HallId $id;
+
+    /** @ORM\Column() */
+    private int $totalSeats;
+
+    public function __construct(HallId $id, int $totalSeats)
+    {
+        $this->id = $id;
+        $this->totalSeats = $totalSeats;
+    }
 
     public function getId(): HallId
     {

@@ -10,17 +10,37 @@ use App\Domain\Booking\Entity\ValueObject\SessionId;
 use App\Domain\Booking\Entity\ValueObject\TicketId;
 use App\Domain\Booking\Exception\TicketsAreOverException;
 use DateTime;
+use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * @ORM\Entity()
+ */
 final class Session
 {
     private TicketCollection $bookedTickets;
 
+    /** @ORM\Embedded(columnPrefix=false) */
+    private SessionId $id;
+
+    /** @ORM\ManyToOne() */
+    private Movie $movie;
+
+    /** @ORM\Column() */
+    private DateTime $startAt;
+
+    /** @ORM\ManyToOne() */
+    private Hall $hall;
+
     public function __construct(
-        private SessionId $id,
-        private Movie $movie,
-        private DateTime $dateTimeStart,
-        private Hall $hall,
+        SessionId $id,
+        Movie $movie,
+        DateTime $startAt,
+        Hall $hall,
     ) {
+        $this->id = $id;
+        $this->movie = $movie;
+        $this->startAt = $startAt;
+        $this->hall = $hall;
         $this->bookedTickets = new TicketCollection();
     }
 
@@ -39,14 +59,14 @@ final class Session
         return $this->movie;
     }
 
-    public function getDateTimeStart(): DateTime
+    public function getStartAt(): DateTime
     {
-        return $this->dateTimeStart;
+        return $this->startAt;
     }
 
-    public function getDateTimeEnd(): DateTime
+    public function getEndAt(): DateTime
     {
-        return $this->dateTimeStart->add($this->movie->getDuration()->getDateInterval());
+        return $this->startAt->add($this->movie->getDuration()->getDateInterval());
     }
 
     public function hasFreeTickets(): bool

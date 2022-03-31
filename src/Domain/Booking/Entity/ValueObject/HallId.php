@@ -2,6 +2,9 @@
 
 namespace App\Domain\Booking\Entity\ValueObject;
 
-class HallId extends AbstractId
+use Doctrine\ORM\Mapping as ORM;
+
+/** @ORM\Embeddable() */
+final class HallId extends AbstractId
 {
 }

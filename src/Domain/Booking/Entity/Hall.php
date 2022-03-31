@@ -6,7 +6,7 @@ use App\Domain\Booking\Entity\ValueObject\HallId;
 use Doctrine\ORM\Mapping as ORM;
 
 /** @ORM\Entity() */
-final class Hall
+class Hall
 {
     /** @ORM\Embedded(columnPrefix=false) */
     private HallId $id;

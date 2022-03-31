@@ -7,7 +7,7 @@ use App\Domain\Booking\Entity\ValueObject\MovieId;
 use Doctrine\ORM\Mapping as ORM;
 
 /** @ORM\Entity() */
-final class Movie
+class Movie
 {
     /** @ORM\Embedded(columnPrefix=false) */
     private MovieId $id;

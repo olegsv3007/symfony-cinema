@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {% dump(sessions) %}
+    {% for session in sessions %}
+        {% include 'components/session_card.html.twig' %}
+    {% endfor %}
+{% endblock %}

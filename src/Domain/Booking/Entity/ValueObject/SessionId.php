@@ -2,6 +2,9 @@
 
 namespace App\Domain\Booking\Entity\ValueObject;
 
-class SessionId extends AbstractId
+use Doctrine\ORM\Mapping as ORM;
+
+/** @ORM\Embeddable() */
+final class SessionId extends AbstractId
 {
 }

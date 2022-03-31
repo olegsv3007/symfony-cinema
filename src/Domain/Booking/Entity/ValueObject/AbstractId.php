@@ -2,13 +2,20 @@
 
 namespace App\Domain\Booking\Entity\ValueObject;
 
+use Doctrine\ORM\Mapping as ORM;
+
 abstract class AbstractId
 {
-    protected string $id;
+    /**
+     * @ORM\Id()
+     * @ORM\Column()
+     * @ORM\GeneratedValue()
+     */
+    protected int $id;
 
-    public function __construct(string $id = '')
+    public function __construct(int $id = -1)
     {
-        $this->id = $id ?: uniqid();
+        $this->id = $id;
     }
 
     public function getId(): int

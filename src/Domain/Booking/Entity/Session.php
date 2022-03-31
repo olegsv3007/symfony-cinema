@@ -11,15 +11,18 @@ use App\Domain\Booking\Entity\ValueObject\TicketId;
 use App\Domain\Booking\Exception\TicketsAreOverException;
 use DateTime;
 
-class Session
+final class Session
 {
+    private TicketCollection $bookedTickets;
+
     public function __construct(
         private SessionId $id,
         private Movie $movie,
         private DateTime $dateTimeStart,
         private Hall $hall,
-        private TicketCollection $bookedTickets = new TicketCollection(),
-    ) { }
+    ) {
+        $this->bookedTickets = new TicketCollection();
+    }
 
     public function getTickets(): TicketCollection
     {

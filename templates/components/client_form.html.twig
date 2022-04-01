@@ -1,0 +1,9 @@
+<form action="{{ path('app.book', {'id':session.id}) }}" method="post">
+    <label>Имя:</label>
+    <input type="text" name="name" /><br/>
+
+    <label>Номер телефона:</label>
+    <input type="text" name="phone_number" /><br/>
+
+    <input type="submit" value="book" name="book">
+</form>

@@ -22,4 +22,9 @@ abstract class AbstractId
     {
         return $this->id;
     }
+
+    public function __toString(): string
+    {
+        return $this->id;
+    }
 }

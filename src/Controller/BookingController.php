@@ -16,4 +16,10 @@ final class BookingController extends AbstractController
 
         return $this->render('main.html.twig', ['sessions' => $sessions]);
     }
+
+    /** @Route("/session/{id}/book", name="app.book", methods={"POST"}) */
+    public function book(): Response
+    {
+        return $this->redirectToRoute('app.main');
+    }
 }

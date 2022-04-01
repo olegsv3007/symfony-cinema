@@ -11,14 +11,24 @@ use App\Domain\Booking\Entity\ValueObject\TicketId;
 use App\Domain\Booking\Exception\TicketsAreOverException;
 use App\Domain\Booking\Repository\SessionRepository;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=SessionRepository::class)
+ * @final
  */
-final class Session
+class Session
 {
-    private TicketCollection $bookedTickets;
+    /**
+     * @ORM\OneToMany (
+     *     targetEntity="Ticket",
+     *     mappedBy="session",
+     *     cascade={"persist", "remove"},
+     * )
+     */
+    private Collection $bookedTickets;
 
     /** @ORM\Embedded(columnPrefix=false) */
     private SessionId $id;
@@ -42,12 +52,12 @@ final class Session
         $this->movie = $movie;
         $this->startAt = $startAt;
         $this->hall = $hall;
-        $this->bookedTickets = new TicketCollection();
+        $this->bookedTickets = new ArrayCollection();
     }
 
     public function getTickets(): TicketCollection
     {
-        return $this->bookedTickets;
+        return new TicketCollection($this->bookedTickets->toArray());
     }
 
     public function getId(): SessionId

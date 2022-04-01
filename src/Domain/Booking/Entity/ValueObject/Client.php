@@ -2,12 +2,25 @@
 
 namespace App\Domain\Booking\Entity\ValueObject;
 
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Embeddable()
+ * @final
+ */
 class Client
 {
-    public function __construct(
-        private string $clientName,
-        private PhoneNumber $phoneNumber,
-    ) { }
+    /** @ORM\Column() */
+    private string $clientName;
+
+    /** @ORM\Embedded(columnPrefix=false) */
+    private PhoneNumber $phoneNumber;
+
+    public function __construct(string $clientName, PhoneNumber $phoneNumber)
+    {
+        $this->clientName = $clientName;
+        $this->phoneNumber = $phoneNumber;
+    }
 
     public function getClientName(): string
     {

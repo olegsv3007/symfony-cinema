@@ -5,14 +5,35 @@ namespace App\Domain\Booking\Entity;
 use App\Domain\Booking\Entity\ValueObject\Client;
 use App\Domain\Booking\Entity\ValueObject\TicketId;
 use DateTime;
+use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * @ORM\Entity()
+ * @final
+ */
 class Ticket
 {
+    /** @ORM\Embedded(columnPrefix=false) */
+    private TicketId $id;
+
+    /** @ORM\Embedded(columnPrefix=false) */
+    private Client $client;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Session", inversedBy="bookedTickets")
+     * @ORM\JoinColumn(name="session_id", referencedColumnName="id")
+     */
+    private Session $session;
+
     public function __construct(
-        private TicketId $id,
-        private Client $client,
-        private Session $session,
-    ) { }
+        TicketId $id,
+        Client $client,
+        Session $session,
+    ) {
+        $this->id = $id;
+        $this->client = $client;
+        $this->session = $session;
+    }
 
     public function getId(): TicketId
     {
@@ -29,8 +50,8 @@ class Ticket
         return $this->session;
     }
 
-    public function getDateTimeStart(): DateTime
+    public function getStartAt(): DateTime
     {
-        return $this->session->getDateTimeStart();
+        return $this->session->getStartAt();
     }
 }

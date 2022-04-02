@@ -2,13 +2,22 @@
 
 namespace App\Domain\Booking\Entity\ValueObject;
 
+use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
 
+/**
+ * @ORM\Embeddable()
+ * @final
+ */
 class PhoneNumber
 {
-    public function __construct(private string $number)
+    /** @ORM\Column(name="client_phone_number") */
+    private string $number;
+
+    public function __construct(string $number)
     {
         $this->validatePhoneNumber($number);
+        $this->number = $number;
     }
 
     public function getNumber(): string

@@ -9,8 +9,7 @@ abstract class AbstractId
     /**
      * @ORM\Id()
      * @ORM\Column()
-     * @ORM\GeneratedValue(strategy="SEQUENCE")
-     * @ORM\SequenceGenerator(sequenceName="id")
+     * @ORM\GeneratedValue()
      */
     protected int $id;
 

@@ -3,5 +3,6 @@
     <div>{{ session.startAt.format('h:i') }} - {{ session.endAt.format('h:i') }}</div>
     <div>Продолжительность: {{ session.movie.duration.hours}}:{{"%02d"|format(session.movie.duration.minutes) }}</div>
     <div>Дата сеанса: {{ session.startAt.format('d F') }}</div>
+    <div>Свободных мест: {{ session.freeTicketsQuantity }}</div>
     {% include 'components/client_form.html.twig' %}
 </div>

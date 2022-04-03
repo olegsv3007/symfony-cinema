@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Domain\Booking\Entity\Session;
 use App\Domain\Booking\Entity\TransferObject\BookTicketDTOFactory;
+use App\Domain\Booking\Exception\TicketsAreOverException;
 use App\Domain\Booking\Repository\SessionRepository;
 use App\Domain\Booking\Repository\TicketRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,8 +26,13 @@ final class BookingController extends AbstractController
     public function book(Request $request, Session $session, TicketRepository $ticketRepository): Response
     {
         $clientInfo = BookTicketDTOFactory::createFromRequest($request);
-        $ticket = $session->bookTicket($clientInfo);
-        $ticketRepository->add($ticket);
+
+        try {
+            $ticket = $session->bookTicket($clientInfo);
+            $ticketRepository->add($ticket);
+        } catch (TicketsAreOverException $e) {
+            $this->addFlash('notice', $e->getMessage());
+        }
 
         return $this->redirectToRoute('app.main');
     }

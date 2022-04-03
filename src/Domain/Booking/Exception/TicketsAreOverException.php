@@ -2,6 +2,10 @@
 
 namespace App\Domain\Booking\Exception;
 
-class TicketsAreOverException extends \Exception
+final class TicketsAreOverException extends \Exception
 {
+    public function __construct()
+    {
+        $this->message = 'Tickets are over';
+    }
 }

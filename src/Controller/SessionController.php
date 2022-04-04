@@ -2,9 +2,8 @@
 
 namespace App\Controller;
 
-use App\Domain\Booking\Command\BookTicketCommand;
+use App\Domain\Booking\Command\Factory\BookTicketCommandFactory;
 use App\Domain\Booking\Entity\Session;
-use App\Domain\Booking\Entity\TransferObject\BookTicketDTOFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,10 +22,8 @@ final class SessionController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-        $clientInfo = BookTicketDTOFactory::createFromRequest($request);
-
         try {
-            $command = new BookTicketCommand($session->getId()->getId(), $clientInfo);
+            $command = BookTicketCommandFactory::createFromRequest($request);
             $bus->dispatch($command);
         } catch (ValidationFailedException $e) {
             foreach ($e->getViolations() as $violation) {

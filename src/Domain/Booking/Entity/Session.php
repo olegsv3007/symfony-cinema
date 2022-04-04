@@ -9,15 +9,14 @@ use App\Domain\Booking\Entity\ValueObject\PhoneNumber;
 use App\Domain\Booking\Entity\ValueObject\SessionId;
 use App\Domain\Booking\Entity\ValueObject\TicketId;
 use App\Domain\Booking\Exception\TicketsAreOverException;
-use App\Domain\Booking\Repository\SessionRepository;
-use App\Domain\Booking\Repository\TicketRepository;
+use App\Domain\Booking\Repository\DoctrineSessionRepository;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=SessionRepository::class)
+ * @ORM\Entity(repositoryClass=DoctrineSessionRepository::class)
  * @final
  */
 class Session
@@ -34,13 +33,16 @@ class Session
     /** @ORM\Embedded(columnPrefix=false) */
     private SessionId $id;
 
-    /** @ORM\ManyToOne() */
+    /** @ORM\ManyToOne(targetEntity="Movie") */
     private Movie $movie;
 
-    /** @ORM\Column() */
+    /** @ORM\Column(type="datetime") */
     private DateTime $startAt;
 
-    /** @ORM\ManyToOne() */
+    /**
+     * @ORM\ManyToOne(targetEntity="Hall")
+     * @ORM\JoinColumn(name="hall_id", referencedColumnName="id")
+     */
     private Hall $hall;
 
     public function __construct(
@@ -91,7 +93,7 @@ class Session
         return $this->hall->getTotalSeats() - $this->bookedTickets->count();
     }
 
-    public function bookTicket(BookTicketDTO $ticketDTO, TicketRepository $ticketRepository): Ticket
+    public function bookTicket(BookTicketDTO $ticketDTO): Ticket
     {
         if (!$this->hasFreeTickets()) {
             throw new TicketsAreOverException();
@@ -108,7 +110,7 @@ class Session
             $this,
         );
 
-        $ticketRepository->add($ticket);
+        $this->bookedTickets->add($ticket);
 
         return $ticket;
     }

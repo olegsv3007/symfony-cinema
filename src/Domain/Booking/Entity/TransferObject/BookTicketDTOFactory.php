@@ -14,4 +14,13 @@ final class BookTicketDTOFactory
 
         return $bookTicketDTO;
     }
+
+    public static function create(string $clientName, string $phoneNumber): BookTicketDTO
+    {
+        $bookTicketDTO = new BookTicketDTO();
+        $bookTicketDTO->clientName = $clientName;
+        $bookTicketDTO->phoneNumber = $phoneNumber;
+
+        return $bookTicketDTO;
+    }
 }

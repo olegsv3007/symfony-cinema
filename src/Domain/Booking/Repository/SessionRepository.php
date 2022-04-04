@@ -3,13 +3,10 @@
 namespace App\Domain\Booking\Repository;
 
 use App\Domain\Booking\Entity\Session;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
 
-final class SessionRepository extends ServiceEntityRepository
+interface SessionRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Session::class);
-    }
+    public function findById(int $id): Session;
+
+    public function add(Session $session, bool $flush = true): void;
 }

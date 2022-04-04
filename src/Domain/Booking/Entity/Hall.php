@@ -5,13 +5,16 @@ namespace App\Domain\Booking\Entity;
 use App\Domain\Booking\Entity\ValueObject\HallId;
 use Doctrine\ORM\Mapping as ORM;
 
-/** @ORM\Entity() */
+/**
+ * @ORM\Entity()
+ * @final
+ */
 class Hall
 {
     /** @ORM\Embedded(columnPrefix=false) */
     private HallId $id;
 
-    /** @ORM\Column() */
+    /** @ORM\Column(type="smallint") */
     private int $totalSeats;
 
     public function __construct(HallId $id, int $totalSeats)

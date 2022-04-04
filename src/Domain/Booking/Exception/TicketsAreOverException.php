@@ -6,6 +6,6 @@ final class TicketsAreOverException extends \Exception
 {
     public function __construct()
     {
-        $this->message = 'Tickets are over';
+        $this->message = 'Билеты кончились';
     }
 }

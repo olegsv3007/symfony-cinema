@@ -10,7 +10,6 @@ use App\Domain\Booking\Entity\ValueObject\SessionId;
 use App\Domain\Booking\Entity\ValueObject\TicketId;
 use App\Domain\Booking\Exception\TicketsAreOverException;
 use App\Domain\Booking\Repository\SessionRepository;
-use App\Domain\Booking\Repository\TicketRepository;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -91,7 +90,7 @@ class Session
         return $this->hall->getTotalSeats() - $this->bookedTickets->count();
     }
 
-    public function bookTicket(BookTicketDTO $ticketDTO, TicketRepository $ticketRepository): Ticket
+    public function bookTicket(BookTicketDTO $ticketDTO): Ticket
     {
         if (!$this->hasFreeTickets()) {
             throw new TicketsAreOverException();
@@ -108,7 +107,7 @@ class Session
             $this,
         );
 
-        $ticketRepository->add($ticket);
+        $this->bookedTickets->add($ticket);
 
         return $ticket;
     }

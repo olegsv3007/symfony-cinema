@@ -12,4 +12,15 @@ final class SessionRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Session::class);
     }
+
+    public function add(Session $session, bool $flush = true): void
+    {
+        $this->_em->persist($session);
+
+        if (!$flush) {
+            return;
+        }
+
+        $this->_em->flush();
+    }
 }

@@ -33,13 +33,16 @@ class Session
     /** @ORM\Embedded(columnPrefix=false) */
     private SessionId $id;
 
-    /** @ORM\ManyToOne() */
+    /** @ORM\ManyToOne(targetEntity="Movie") */
     private Movie $movie;
 
-    /** @ORM\Column() */
+    /** @ORM\Column(type="datetime") */
     private DateTime $startAt;
 
-    /** @ORM\ManyToOne() */
+    /**
+     * @ORM\ManyToOne(targetEntity="Hall")
+     * @ORM\JoinColumn(name="hall_id", referencedColumnName="id")
+     */
     private Hall $hall;
 
     public function __construct(

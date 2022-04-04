@@ -6,13 +6,16 @@ use App\Domain\Booking\Entity\ValueObject\Duration;
 use App\Domain\Booking\Entity\ValueObject\MovieId;
 use Doctrine\ORM\Mapping as ORM;
 
-/** @ORM\Entity() */
+/**
+ * @ORM\Entity()
+ * @final
+ */
 class Movie
 {
     /** @ORM\Embedded(columnPrefix=false) */
     private MovieId $id;
 
-    /** @ORM\Column() */
+    /** @ORM\Column(type="string") */
     private string $name;
 
     /** @ORM\Embedded() */

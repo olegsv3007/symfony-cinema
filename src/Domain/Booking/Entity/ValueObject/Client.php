@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Client
 {
-    /** @ORM\Column() */
+    /** @ORM\Column(type="string") */
     private string $clientName;
 
     /** @ORM\Embedded(columnPrefix=false) */

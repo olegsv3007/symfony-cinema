@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class PhoneNumber
 {
-    /** @ORM\Column(name="client_phone_number") */
+    /** @ORM\Column(name="client_phone_number", type="string") */
     private string $number;
 
     public function __construct(string $number)

@@ -13,7 +13,7 @@ final class BookTicketCommandHandler
     public function __invoke(BookTicketCommand $command): void
     {
         $client = $command->clientData;
-        $session = $this->sessionRepository->find($command->sessionId);
+        $session = $this->sessionRepository->findById($command->sessionId);
 
         $session->bookTicket($client);
         $this->sessionRepository->add($session);

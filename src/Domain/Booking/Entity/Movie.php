@@ -3,8 +3,8 @@
 namespace App\Domain\Booking\Entity;
 
 use App\Domain\Booking\Entity\ValueObject\Duration;
-use App\Domain\Booking\Entity\ValueObject\MovieId;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * @ORM\Entity()
@@ -12,8 +12,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Movie
 {
-    /** @ORM\Embedded(columnPrefix=false) */
-    private MovieId $id;
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="uuid", unique=true)
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class="doctrine.uuid_generator")
+     */
+    private Uuid $id;
 
     /** @ORM\Column(type="string") */
     private string $name;
@@ -21,14 +26,13 @@ class Movie
     /** @ORM\Embedded() */
     private Duration $duration;
 
-    public function __construct(MovieId $id, string $name, Duration $duration)
+    public function __construct(string $name, Duration $duration)
     {
-        $this->id = $id;
         $this->name = $name;
         $this->duration = $duration;
     }
 
-    public function getId(): MovieId
+    public function getId(): ?Uuid
     {
         return $this->id;
     }

@@ -18,6 +18,6 @@ final class BookTicketCommandHandler
         $session = $this->sessionRepository->findById($command->sessionId);
 
         $session->bookTicket($client);
-        $this->sessionRepository->add($session);
+        $this->sessionRepository->save($session);
     }
 }

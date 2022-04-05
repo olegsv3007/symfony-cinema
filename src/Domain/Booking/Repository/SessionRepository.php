@@ -8,5 +8,5 @@ interface SessionRepository
 {
     public function findById(int $id): Session;
 
-    public function add(Session $session, bool $flush = true): void;
+    public function save(Session $session): void;
 }

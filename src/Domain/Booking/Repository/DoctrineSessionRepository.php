@@ -13,14 +13,9 @@ final class DoctrineSessionRepository extends ServiceEntityRepository implements
         parent::__construct($registry, Session::class);
     }
 
-    public function add(Session $session, bool $flush = true): void
+    public function save(Session $session): void
     {
         $this->_em->persist($session);
-
-        if (!$flush) {
-            return;
-        }
-
         $this->_em->flush();
     }
 

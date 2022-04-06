@@ -9,7 +9,7 @@ final class BookTicketCommandFactory
 {
     public static function createFromRequest(Request $request): BookTicketCommand
     {
-        $sessionId = $request->attributes->get('_route_params')['session'];
+        $sessionId = $request->get('session')->getId();
         $clientName = $request->get('name');
         $clientPhoneNumber = $request->get('phone_number');
 

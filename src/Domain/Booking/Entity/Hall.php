@@ -2,8 +2,8 @@
 
 namespace App\Domain\Booking\Entity;
 
-use App\Domain\Booking\Entity\ValueObject\HallId;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * @ORM\Entity()
@@ -11,19 +11,23 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Hall
 {
-    /** @ORM\Embedded(columnPrefix=false) */
-    private HallId $id;
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="uuid", unique=true)
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class="doctrine.uuid_generator")
+     */
+    private Uuid $id;
 
     /** @ORM\Column(type="smallint") */
     private int $totalSeats;
 
-    public function __construct(HallId $id, int $totalSeats)
+    public function __construct(int $totalSeats)
     {
-        $this->id = $id;
         $this->totalSeats = $totalSeats;
     }
 
-    public function getId(): HallId
+    public function getId(): ?Uuid
     {
         return $this->id;
     }

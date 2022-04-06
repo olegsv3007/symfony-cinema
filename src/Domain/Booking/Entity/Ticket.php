@@ -3,9 +3,9 @@
 namespace App\Domain\Booking\Entity;
 
 use App\Domain\Booking\Entity\ValueObject\Client;
-use App\Domain\Booking\Entity\ValueObject\TicketId;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * @ORM\Entity()
@@ -13,8 +13,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Ticket
 {
-    /** @ORM\Embedded(columnPrefix=false) */
-    private TicketId $id;
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="uuid", unique=true)
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class="doctrine.uuid_generator")
+     */
+    private Uuid $id;
 
     /** @ORM\Embedded(columnPrefix=false) */
     private Client $client;
@@ -26,16 +31,14 @@ class Ticket
     private Session $session;
 
     public function __construct(
-        TicketId $id,
         Client $client,
         Session $session,
     ) {
-        $this->id = $id;
         $this->client = $client;
         $this->session = $session;
     }
 
-    public function getId(): TicketId
+    public function getId(): ?Uuid
     {
         return $this->id;
     }

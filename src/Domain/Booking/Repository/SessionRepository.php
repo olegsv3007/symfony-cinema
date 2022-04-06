@@ -3,10 +3,11 @@
 namespace App\Domain\Booking\Repository;
 
 use App\Domain\Booking\Entity\Session;
+use Symfony\Component\Uid\Uuid;
 
 interface SessionRepository
 {
-    public function findById(int $id): Session;
+    public function findById(Uuid $id): Session;
 
-    public function add(Session $session, bool $flush = true): void;
+    public function save(Session $session): void;
 }

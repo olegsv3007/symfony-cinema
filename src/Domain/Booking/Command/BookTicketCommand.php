@@ -2,6 +2,7 @@
 
 namespace App\Domain\Booking\Command;
 
+use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final class BookTicketCommand
@@ -24,7 +25,7 @@ final class BookTicketCommand
      */
     public string $phoneNumber;
 
-    public function __construct(public int $sessionId, string $clientName, string $phoneNumber)
+    public function __construct(public Uuid $sessionId, string $clientName, string $phoneNumber)
     {
         $this->clientName = $clientName;
         $this->phoneNumber = $phoneNumber;

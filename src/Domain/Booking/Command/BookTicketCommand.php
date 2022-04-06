@@ -7,6 +7,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 final class BookTicketCommand
 {
+    /** @Assert\Uuid() */
+    public Uuid $sessionId;
+
     /** @Assert\NotBlank(message="Поле 'Имя' не можеть быть пустым") */
     public string $clientName;
 
@@ -24,10 +27,4 @@ final class BookTicketCommand
      * )
      */
     public string $phoneNumber;
-
-    public function __construct(public Uuid $sessionId, string $clientName, string $phoneNumber)
-    {
-        $this->clientName = $clientName;
-        $this->phoneNumber = $phoneNumber;
-    }
 }

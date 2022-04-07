@@ -9,3 +9,9 @@
 7. (Опционально) Заполните БД тестовыми данными `docker exec -itu1000 resolventa_backend_internship_php-fpm_1 ./bin/console doctrine:fixtures:load`
 8. Вернитесь в рабочую директорию `cd ..`
 9. Перейдите на [страницу приветствия Symfony](http://localhost/)
+
+# Тестирование
+
+1. Создать базу данных для тестов `docker exec -itu1000 resolventa_backend_internship_php-fpm_1 bin/console --env=test doctrine:database:create`
+2. Создать таблицы для тестовой БД `docker exec -itu1000 resolventa_backend_internship_php-fpm_1 bin/console --env=test doctrine:schema:create`
+3. Запустить тесты `docker exec -itu1000 resolventa_backend_internship_php-fpm_1 php bin/phpunit`

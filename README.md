@@ -14,4 +14,5 @@
 
 1. Создать базу данных для тестов `docker exec -itu1000 resolventa_backend_internship_php-fpm_1 bin/console --env=test doctrine:database:create`
 2. Создать таблицы для тестовой БД `docker exec -itu1000 resolventa_backend_internship_php-fpm_1 bin/console --env=test doctrine:schema:create`
-3. Запустить тесты `docker exec -itu1000 resolventa_backend_internship_php-fpm_1 php bin/phpunit`
+3. Применить фикстуры к тестовой БД `docker exec -itu1000 resolventa_backend_internship_php-fpm_1 bin/console --env=test doctrine:fixtures:load`
+4. Запустить тесты `docker exec -itu1000 resolventa_backend_internship_php-fpm_1 php bin/phpunit`

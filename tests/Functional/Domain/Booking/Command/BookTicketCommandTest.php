@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Tests\Functional;
+namespace App\Tests\Functional\Domain\Booking\Command;
 
 use App\Domain\Booking\Command\BookTicketCommand;
 use App\Domain\Booking\Entity\Session;
 use App\Domain\Booking\Repository\SessionRepository;
+use App\Tests\Functional\FunctionalKernelTestCase;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\Exception\ValidationFailedException;
 use Symfony\Component\Messenger\MessageBusInterface;

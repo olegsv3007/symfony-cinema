@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Tests\Unit;
+namespace App\Tests\Unit\Domain\Booking\Entity\ValueObject;
 
 use App\Domain\Booking\Entity\ValueObject\Duration;
+use App\Tests\Unit\UnitTestCase;
 use InvalidArgumentException;
 
 final class DurationTest extends UnitTestCase

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Unit;
+namespace App\Tests\Unit\Domain\Booking\Entity;
 
 use App\Domain\Booking\Entity\Hall;
 use App\Domain\Booking\Entity\Movie;
@@ -9,6 +9,7 @@ use App\Domain\Booking\Entity\TransferObject\BookTicketDTO;
 use App\Domain\Booking\Entity\TransferObject\BookTicketDTOFactory;
 use App\Domain\Booking\Entity\ValueObject\Duration;
 use App\Domain\Booking\Exception\TicketsAreOverException;
+use App\Tests\Unit\UnitTestCase;
 use DateTime;
 
 final class SessionTest extends UnitTestCase

@@ -10,9 +10,8 @@ use App\Domain\Booking\Entity\TransferObject\BookTicketDTOFactory;
 use App\Domain\Booking\Entity\ValueObject\Duration;
 use App\Domain\Booking\Exception\TicketsAreOverException;
 use DateTime;
-use PHPUnit\Framework\TestCase;
 
-final class SessionTest extends TestCase
+final class SessionTest extends UnitTestCase
 {
     public function testUserCanBookTicketWhenSessionHasFreeTickets(): void
     {
@@ -31,6 +30,7 @@ final class SessionTest extends TestCase
     {
         $client = $this->getClient();
         $session = $this->getSessionWithoutFreeTickets();
+
         $this->expectException(TicketsAreOverException::class);
 
         $session->bookTicket($client);

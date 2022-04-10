@@ -4,9 +4,8 @@ namespace App\Tests\Unit;
 
 use App\Domain\Booking\Entity\ValueObject\Duration;
 use InvalidArgumentException;
-use PHPUnit\Framework\TestCase;
 
-final class DurationTest extends TestCase
+final class DurationTest extends UnitTestCase
 {
     /**
      * @dataProvider negativeNumbersProvider

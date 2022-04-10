@@ -5,13 +5,12 @@ namespace App\Tests\Functional;
 use App\Domain\Booking\Command\BookTicketCommand;
 use App\Domain\Booking\Entity\Session;
 use App\Domain\Booking\Repository\SessionRepository;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\Exception\ValidationFailedException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Uid\Uuid;
 
-final class BookTicketCommandTest extends KernelTestCase
+final class BookTicketCommandTest extends FunctionalKernelTestCase
 {
     private SessionRepository $sessionRepository;
     private MessageBusInterface $bus;

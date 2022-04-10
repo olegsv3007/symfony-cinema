@@ -4,43 +4,26 @@ namespace App\Tests\Functional\Domain\Booking\Command;
 
 use App\Domain\Booking\Command\BookTicketCommand;
 use App\Domain\Booking\Entity\Session;
-use App\Domain\Booking\Repository\SessionRepository;
+use App\Tests\DataFixtures\SessionWithFreeTicketsFixture;
+use App\Tests\DataFixtures\SessionWithoutFreeTicketsFixture;
 use App\Tests\Functional\FunctionalKernelTestCase;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\Exception\ValidationFailedException;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Uid\Uuid;
 
 final class BookTicketCommandTest extends FunctionalKernelTestCase
 {
-    private SessionRepository $sessionRepository;
-    private MessageBusInterface $bus;
-
-    protected function setUp(): void
-    {
-        self::bootKernel();
-
-        $container = self::getContainer();
-
-        $this->sessionRepository = $container->get(SessionRepository::class);
-        $this->bus = $container->get(MessageBusInterface::class);
-    }
-
     /**
      * @dataProvider validClientDataProvider
      */
     public function testCorrectCommandCanBeHandleForSessionWithFreeTickets(string $clientName, string $phoneNumber): void
     {
-        $session = $this->getSessionWithFiveFreeTickets();
+        $session = $this->getSessionWithFreeTickets();
         $command = $this->getNewCommand($session->getId(), $clientName, $phoneNumber);
 
         $this->bus->dispatch($command);
-        $this->bus->dispatch($command);
-        $this->bus->dispatch($command);
-        $this->bus->dispatch($command);
-        $this->bus->dispatch($command);
 
-        $this->assertEquals(15, $session->getTickets()->count());
+        $this->assertEquals(1, $session->getTickets()->count());
     }
 
     public function testCorrectCommandThrowExceptionForSessionWithoutFreeTickets(): void
@@ -62,7 +45,7 @@ final class BookTicketCommandTest extends FunctionalKernelTestCase
         string $clientName,
         string $phoneNumber,
     ): void {
-        $session = $this->getSessionWithFiveFreeTickets();
+        $session = $this->getSessionWithFreeTickets();
         $command = $this->getNewCommand($session->getId(), $clientName, $phoneNumber);
         $this->expectException(ValidationFailedException::class);
 
@@ -83,13 +66,21 @@ final class BookTicketCommandTest extends FunctionalKernelTestCase
         return $command;
     }
 
-    private function getSessionWithFiveFreeTickets(): Session
+    private function getSessionWithFreeTickets(): Session
     {
-        return $this->sessionRepository->findAll()[1];
+        $this->databaseTool->loadFixtures([
+            SessionWithFreeTicketsFixture::class,
+        ]);
+
+        return $this->sessionRepository->findAll()[0];
     }
 
     private function getSessionWithoutFreeTickets(): Session
     {
+        $this->databaseTool->loadFixtures([
+            SessionWithoutFreeTicketsFixture::class,
+        ]);
+
         return $this->sessionRepository->findAll()[0];
     }
 

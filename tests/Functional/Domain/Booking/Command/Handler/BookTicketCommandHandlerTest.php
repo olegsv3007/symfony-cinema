@@ -3,11 +3,11 @@
 namespace App\Tests\Functional\Domain\Booking\Command\Handler;
 
 use App\Domain\Booking\Command\BookTicketCommand;
-use App\Tests\Functional\FunctionalKernelTestCase;
+use App\Tests\Functional\FunctionalTestCase;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Uid\Uuid;
 
-final class BookTicketCommandHandlerTest extends FunctionalKernelTestCase
+final class BookTicketCommandHandlerTest extends FunctionalTestCase
 {
     public function testCorrectCommandCanBeHandleForSessionWithFreeTickets(): void
     {

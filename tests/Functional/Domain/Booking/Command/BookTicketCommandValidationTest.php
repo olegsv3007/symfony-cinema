@@ -3,9 +3,9 @@
 namespace App\Tests\Functional\Domain\Booking\Command;
 
 use App\Domain\Booking\Command\BookTicketCommand;
-use App\Tests\Functional\FunctionalKernelTestCase;
+use App\Tests\Functional\FunctionalTestCase;
 
-final class BookTicketCommandValidationTest extends FunctionalKernelTestCase
+final class BookTicketCommandValidationTest extends FunctionalTestCase
 {
     /**
      * @dataProvider validClientDataProvider

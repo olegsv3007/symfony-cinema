@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-abstract class FunctionalKernelTestCase extends KernelTestCase
+abstract class FunctionalTestCase extends KernelTestCase
 {
     protected SessionRepository $sessionRepository;
     protected MessageBusInterface $bus;

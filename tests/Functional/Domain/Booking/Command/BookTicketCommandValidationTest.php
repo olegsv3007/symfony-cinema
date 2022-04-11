@@ -3,6 +3,8 @@
 namespace App\Tests\Functional\Domain\Booking\Command;
 
 use App\Domain\Booking\Command\BookTicketCommand;
+use App\Domain\Booking\Entity\Session;
+use App\Tests\DataFixtures\SessionWithFreeTicketsFixture;
 use App\Tests\Functional\FunctionalTestCase;
 
 final class BookTicketCommandValidationTest extends FunctionalTestCase
@@ -62,5 +64,18 @@ final class BookTicketCommandValidationTest extends FunctionalTestCase
             ['dfhgdfhsdhsdhsdghsdgh', '12345678901234'],
             ['FfFDf FFGfe$D', '12345678901234'],
         ];
+    }
+
+    private function getSessionWithFreeTickets(): Session
+    {
+        $references = $this->databaseTool->loadFixtures([
+            SessionWithFreeTicketsFixture::class,
+        ])->getReferenceRepository();
+
+        $session = $references->getReference(SessionWithFreeTicketsFixture::SESSION_WITH_FREE_TICKETS_REFERENCE);
+
+        assert($session instanceof Session);
+
+        return $session;
     }
 }

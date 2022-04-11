@@ -16,8 +16,8 @@ final class SessionTest extends UnitTestCase
 {
     public function testNewTicketExistsAfterBookTicketWhenSessionHasFreeTickets(): void
     {
-        $client = $this->getClient();
-        $session = $this->getSessionWithFreeTickets();
+        $client = $this->createClient();
+        $session = $this->createSessionWithFreeTickets();
 
         $ticket = $session->bookTicket($client);
 
@@ -29,20 +29,20 @@ final class SessionTest extends UnitTestCase
 
     public function testThrowExceptionAfterBookTicketWhenSessionHasNoFreeTickets(): void
     {
-        $client = $this->getClient();
-        $session = $this->getSessionWithoutFreeTickets();
+        $client = $this->createClient();
+        $session = $this->createSessionWithoutFreeTickets();
 
         $this->expectException(TicketsAreOverException::class);
 
         $session->bookTicket($client);
     }
 
-    private function getClient(): BookTicketDTO
+    private function createClient(): BookTicketDTO
     {
         return BookTicketDTOFactory::create('clientName', 'phoneNumber');
     }
 
-    private function getSessionWithFreeTickets(): Session
+    private function createSessionWithFreeTickets(): Session
     {
         return new Session(
             new Movie('TestMovie', new Duration(150)),
@@ -51,7 +51,7 @@ final class SessionTest extends UnitTestCase
         );
     }
 
-    private function getSessionWithoutFreeTickets(): Session
+    private function createSessionWithoutFreeTickets(): Session
     {
         return new Session(
             new Movie('TestMovie', new Duration(150)),

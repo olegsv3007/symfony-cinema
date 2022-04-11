@@ -50,13 +50,9 @@ final class DurationTest extends UnitTestCase
         return [
             [0, 0],
             [1, 1],
-            [30, 30],
             [59, 59],
             [60, 0],
             [61, 1],
-            [119, 59],
-            [158, 38],
-            [600, 0],
         ];
     }
 
@@ -68,13 +64,9 @@ final class DurationTest extends UnitTestCase
         return [
             [0, 0],
             [1, 0],
-            [30, 0],
             [59, 0],
             [60, 1],
             [61, 1],
-            [100, 1],
-            [150, 2],
-            [600, 10],
         ];
     }
 

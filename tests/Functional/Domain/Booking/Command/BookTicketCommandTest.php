@@ -19,7 +19,7 @@ final class BookTicketCommandTest extends FunctionalKernelTestCase
     public function testCorrectCommandCanBeHandleForSessionWithFreeTickets(string $clientName, string $phoneNumber): void
     {
         $session = $this->getSessionWithFreeTickets();
-        $command = $this->getNewCommand($session->getId(), $clientName, $phoneNumber);
+        $command = new BookTicketCommand($session->getId(), $clientName, $phoneNumber);
 
         $this->bus->dispatch($command);
 
@@ -29,7 +29,7 @@ final class BookTicketCommandTest extends FunctionalKernelTestCase
     public function testCorrectCommandThrowExceptionForSessionWithoutFreeTickets(): void
     {
         $session = $this->getSessionWithoutFreeTickets();
-        $command = $this->getNewCommand($session->getId());
+        $command = $this->createNewCommand($session->getId());
         $this->expectException(HandlerFailedException::class);
         $this->expectExceptionMessage('Билеты кончились');
 
@@ -46,24 +46,15 @@ final class BookTicketCommandTest extends FunctionalKernelTestCase
         string $phoneNumber,
     ): void {
         $session = $this->getSessionWithFreeTickets();
-        $command = $this->getNewCommand($session->getId(), $clientName, $phoneNumber);
+        $command = new BookTicketCommand($session->getId(), $clientName, $phoneNumber);
         $this->expectException(ValidationFailedException::class);
 
         $this->bus->dispatch($command);
     }
 
-    private function getNewCommand(
-        Uuid $sessionId,
-        string $clientName = 'testClient',
-        string $phoneNumber = '9876543210',
-    ): BookTicketCommand {
-        $command = new BookTicketCommand();
-
-        $command->sessionId = $sessionId;
-        $command->clientName = $clientName;
-        $command->phoneNumber = $phoneNumber;
-
-        return $command;
+    private function createNewCommand(Uuid $sessionId): BookTicketCommand
+    {
+        return new BookTicketCommand($sessionId, 'testClient', '9876543210');
     }
 
     private function getSessionWithFreeTickets(): Session

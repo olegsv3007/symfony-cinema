@@ -16,28 +16,28 @@ final class SessionTest extends UnitTestCase
 {
     public function testNewTicketExistsAfterBookTicketWhenSessionHasFreeTickets(): void
     {
-        $client = $this->createClient();
+        $bookTicketDTO = $this->createBookTicketDTO();
         $session = $this->createSessionWithFreeTickets();
 
-        $ticket = $session->bookTicket($client);
+        $ticket = $session->bookTicket($bookTicketDTO);
 
         $this->assertCount(1, $session->getTickets());
         $this->assertContains($ticket, $session->getTickets());
-        $this->assertEquals($client->clientName, $ticket->getClient()->getClientName());
-        $this->assertEquals($client->phoneNumber, $ticket->getClient()->getPhoneNumber()->getNumber());
+        $this->assertEquals($bookTicketDTO->clientName, $ticket->getClient()->getClientName());
+        $this->assertEquals($bookTicketDTO->phoneNumber, $ticket->getClient()->getPhoneNumber()->getNumber());
     }
 
     public function testThrowExceptionAfterBookTicketWhenSessionHasNoFreeTickets(): void
     {
-        $client = $this->createClient();
+        $bookTicketDTO = $this->createBookTicketDTO();
         $session = $this->createSessionWithoutFreeTickets();
 
         $this->expectException(TicketsAreOverException::class);
 
-        $session->bookTicket($client);
+        $session->bookTicket($bookTicketDTO);
     }
 
-    private function createClient(): BookTicketDTO
+    private function createBookTicketDTO(): BookTicketDTO
     {
         return BookTicketDTOFactory::create('clientName', 'phoneNumber');
     }

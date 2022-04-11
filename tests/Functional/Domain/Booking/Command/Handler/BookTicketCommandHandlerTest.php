@@ -3,11 +3,14 @@
 namespace App\Tests\Functional\Domain\Booking\Command\Handler;
 
 use App\Domain\Booking\Command\BookTicketCommand;
-use App\Tests\Functional\FunctionalKernelTestCase;
+use App\Domain\Booking\Entity\Session;
+use App\Tests\DataFixtures\SessionWithFreeTicketsFixture;
+use App\Tests\DataFixtures\SessionWithoutFreeTicketsFixture;
+use App\Tests\Functional\FunctionalTestCase;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Uid\Uuid;
 
-final class BookTicketCommandHandlerTest extends FunctionalKernelTestCase
+final class BookTicketCommandHandlerTest extends FunctionalTestCase
 {
     public function testCorrectCommandCanBeHandleForSessionWithFreeTickets(): void
     {
@@ -28,6 +31,32 @@ final class BookTicketCommandHandlerTest extends FunctionalKernelTestCase
         $this->expectExceptionMessage('Билеты кончились');
 
         $this->bus->dispatch($command);
+    }
+
+    private function getSessionWithFreeTickets(): Session
+    {
+        $references = $this->databaseTool->loadFixtures([
+            SessionWithFreeTicketsFixture::class,
+        ])->getReferenceRepository();
+
+        $session = $references->getReference(SessionWithFreeTicketsFixture::SESSION_WITH_FREE_TICKETS_REFERENCE);
+
+        assert($session instanceof Session);
+
+        return $session;
+    }
+
+    private function getSessionWithoutFreeTickets(): Session
+    {
+        $references = $this->databaseTool->loadFixtures([
+            SessionWithoutFreeTicketsFixture::class,
+        ])->getReferenceRepository();
+
+        $session = $references->getReference(SessionWithoutFreeTicketsFixture::SESSION_WITHOUT_FREE_TICKETS_REFERENCE);
+
+        assert($session instanceof Session);
+
+        return $session;
     }
 
     private function createNewCommand(Uuid $sessionId): BookTicketCommand

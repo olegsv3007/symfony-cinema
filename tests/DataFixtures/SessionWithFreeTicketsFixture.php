@@ -12,16 +12,20 @@ use Doctrine\Persistence\ObjectManager;
 
 final class SessionWithFreeTicketsFixture extends Fixture
 {
+    public const SESSION_WITH_FREE_TICKETS_REFERENCE = 'session-with-free-tickets';
+
     public function load(ObjectManager $manager): void
     {
-        $hall1 = new Hall(1);
-        $movie1 = new Movie('Movie #1', new Duration(116));
-        $session1 = new Session($movie1, new DateTime('tomorrow'), $hall1);
+        $hall = new Hall(1);
+        $movie = new Movie('Movie #1', new Duration(116));
+        $session = new Session($movie, new DateTime('tomorrow'), $hall);
 
-        $manager->persist($hall1);
-        $manager->persist($movie1);
-        $manager->persist($session1);
+        $manager->persist($hall);
+        $manager->persist($movie);
+        $manager->persist($session);
 
         $manager->flush();
+
+        $this->addReference(self::SESSION_WITH_FREE_TICKETS_REFERENCE, $session);
     }
 }

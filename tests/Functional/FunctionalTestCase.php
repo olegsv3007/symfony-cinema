@@ -33,19 +33,19 @@ abstract class FunctionalTestCase extends KernelTestCase
 
     protected function getSessionWithFreeTickets(): Session
     {
-        $this->databaseTool->loadFixtures([
+        $references = $this->databaseTool->loadFixtures([
             SessionWithFreeTicketsFixture::class,
-        ]);
+        ])->getReferenceRepository();
 
-        return $this->sessionRepository->findAll()[0];
+        return $references->getReference(SessionWithFreeTicketsFixture::SESSION_WITH_FREE_TICKETS_REFERENCE);
     }
 
     protected function getSessionWithoutFreeTickets(): Session
     {
-        $this->databaseTool->loadFixtures([
+        $references = $this->databaseTool->loadFixtures([
             SessionWithoutFreeTicketsFixture::class,
-        ]);
+        ])->getReferenceRepository();
 
-        return $this->sessionRepository->findAll()[0];
+        return $references->getReference(SessionWithoutFreeTicketsFixture::SESSION_WITHOUT_FREE_TICKETS_REFERENCE);
     }
 }

@@ -48,9 +48,9 @@
         "twig/twig": "^2.12|^3.0"
     },
     "require-dev": {
-        "dama/doctrine-test-bundle": "^6.7",
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "friendsofphp/php-cs-fixer": "^3.6",
+        "liip/test-fixtures-bundle": "^2.0.0",
         "phpro/grumphp": "^1.7",
         "phpunit/phpunit": "^9.5",
         "sebastian/phpcpd": "^6.0",

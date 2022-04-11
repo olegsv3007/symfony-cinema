@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Unit;
+namespace App\Tests\Unit\Domain\Booking\Entity;
 
 use App\Domain\Booking\Entity\Hall;
 use App\Domain\Booking\Entity\Movie;
@@ -9,15 +9,15 @@ use App\Domain\Booking\Entity\TransferObject\BookTicketDTO;
 use App\Domain\Booking\Entity\TransferObject\BookTicketDTOFactory;
 use App\Domain\Booking\Entity\ValueObject\Duration;
 use App\Domain\Booking\Exception\TicketsAreOverException;
+use App\Tests\Unit\UnitTestCase;
 use DateTime;
-use PHPUnit\Framework\TestCase;
 
-final class SessionTest extends TestCase
+final class SessionTest extends UnitTestCase
 {
-    public function testUserCanBookTicketWhenSessionHasFreeTickets(): void
+    public function testNewTicketExistsAfterBookTicketWhenSessionHasFreeTickets(): void
     {
-        $client = $this->getClient();
-        $session = $this->getSessionWithFreeTickets();
+        $client = $this->createClient();
+        $session = $this->createSessionWithFreeTickets();
 
         $ticket = $session->bookTicket($client);
 
@@ -27,21 +27,22 @@ final class SessionTest extends TestCase
         $this->assertEquals($client->phoneNumber, $ticket->getClient()->getPhoneNumber()->getNumber());
     }
 
-    public function testUserCantBookTicketWhenSessionHasNoFreeTickets(): void
+    public function testThrowExceptionAfterBookTicketWhenSessionHasNoFreeTickets(): void
     {
-        $client = $this->getClient();
-        $session = $this->getSessionWithoutFreeTickets();
+        $client = $this->createClient();
+        $session = $this->createSessionWithoutFreeTickets();
+
         $this->expectException(TicketsAreOverException::class);
 
         $session->bookTicket($client);
     }
 
-    private function getClient(): BookTicketDTO
+    private function createClient(): BookTicketDTO
     {
         return BookTicketDTOFactory::create('clientName', 'phoneNumber');
     }
 
-    private function getSessionWithFreeTickets(): Session
+    private function createSessionWithFreeTickets(): Session
     {
         return new Session(
             new Movie('TestMovie', new Duration(150)),
@@ -50,7 +51,7 @@ final class SessionTest extends TestCase
         );
     }
 
-    private function getSessionWithoutFreeTickets(): Session
+    private function createSessionWithoutFreeTickets(): Session
     {
         return new Session(
             new Movie('TestMovie', new Duration(150)),

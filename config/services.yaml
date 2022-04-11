@@ -24,3 +24,6 @@ services:
     # please note that last definitions always *replace* previous ones
     App\Domain\Booking\Command\Handler\BookTicketCommandHandler:
         tags: [{name: messenger.message_handler, bus: command.bus}]
+
+    App\Tests\DataFixtures\:
+        resource: '../tests/DataFixtures'

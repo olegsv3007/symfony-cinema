@@ -27,4 +27,11 @@ final class BookTicketCommand
      * )
      */
     public string $phoneNumber;
+
+    public function __construct(Uuid $sessionId, string $clientName, string $phoneNumber)
+    {
+        $this->sessionId = $sessionId;
+        $this->clientName = $clientName;
+        $this->phoneNumber = $phoneNumber;
+    }
 }

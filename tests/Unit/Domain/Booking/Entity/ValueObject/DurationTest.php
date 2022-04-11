@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Tests\Unit;
+namespace App\Tests\Unit\Domain\Booking\Entity\ValueObject;
 
 use App\Domain\Booking\Entity\ValueObject\Duration;
+use App\Tests\Unit\UnitTestCase;
 use InvalidArgumentException;
-use PHPUnit\Framework\TestCase;
 
-final class DurationTest extends TestCase
+final class DurationTest extends UnitTestCase
 {
     /**
      * @dataProvider negativeNumbersProvider
@@ -50,13 +50,9 @@ final class DurationTest extends TestCase
         return [
             [0, 0],
             [1, 1],
-            [30, 30],
             [59, 59],
             [60, 0],
             [61, 1],
-            [119, 59],
-            [158, 38],
-            [600, 0],
         ];
     }
 
@@ -68,13 +64,9 @@ final class DurationTest extends TestCase
         return [
             [0, 0],
             [1, 0],
-            [30, 0],
             [59, 0],
             [60, 1],
             [61, 1],
-            [100, 1],
-            [150, 2],
-            [600, 10],
         ];
     }
 

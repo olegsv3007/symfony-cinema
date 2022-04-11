@@ -23,19 +23,18 @@ final class BookTicketCommandTest extends FunctionalKernelTestCase
 
         $this->bus->dispatch($command);
 
-        $this->assertEquals(1, $session->getTickets()->count());
+        $this->assertCount(1, $session->getTickets());
     }
 
     public function testCorrectCommandThrowExceptionForSessionWithoutFreeTickets(): void
     {
         $session = $this->getSessionWithoutFreeTickets();
         $command = $this->createNewCommand($session->getId());
+
         $this->expectException(HandlerFailedException::class);
         $this->expectExceptionMessage('Билеты кончились');
 
         $this->bus->dispatch($command);
-
-        $this->assertEquals(10, $session->getTickets()->count());
     }
 
     /**
@@ -47,6 +46,7 @@ final class BookTicketCommandTest extends FunctionalKernelTestCase
     ): void {
         $session = $this->getSessionWithFreeTickets();
         $command = new BookTicketCommand($session->getId(), $clientName, $phoneNumber);
+
         $this->expectException(ValidationFailedException::class);
 
         $this->bus->dispatch($command);

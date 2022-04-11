@@ -37,14 +37,14 @@ class Session
      */
     private Uuid $id;
 
-    /** @ORM\ManyToOne(targetEntity="Movie") */
+    /** @ORM\ManyToOne(targetEntity="Movie", cascade={"persist", "remove"}) */
     private Movie $movie;
 
     /** @ORM\Column(type="datetime") */
     private DateTime $startAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Hall")
+     * @ORM\ManyToOne(targetEntity="Hall", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="hall_id", referencedColumnName="id")
      */
     private Hall $hall;

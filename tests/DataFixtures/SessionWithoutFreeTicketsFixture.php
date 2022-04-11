@@ -20,10 +20,7 @@ final class SessionWithoutFreeTicketsFixture extends Fixture
         $movie = new Movie('Movie #1', new Duration(116));
         $session = new Session($movie, new DateTime('tomorrow'), $hall);
 
-        $manager->persist($hall);
-        $manager->persist($movie);
         $manager->persist($session);
-
         $manager->flush();
 
         $this->addReference(self::SESSION_WITHOUT_FREE_TICKETS_REFERENCE, $session);

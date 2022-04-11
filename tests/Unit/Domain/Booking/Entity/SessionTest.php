@@ -14,7 +14,7 @@ use DateTime;
 
 final class SessionTest extends UnitTestCase
 {
-    public function testUserCanBookTicketWhenSessionHasFreeTickets(): void
+    public function testNewTicketExistsAfterBookTicketWhenSessionHasFreeTickets(): void
     {
         $client = $this->getClient();
         $session = $this->getSessionWithFreeTickets();
@@ -27,7 +27,7 @@ final class SessionTest extends UnitTestCase
         $this->assertEquals($client->phoneNumber, $ticket->getClient()->getPhoneNumber()->getNumber());
     }
 
-    public function testUserCantBookTicketWhenSessionHasNoFreeTickets(): void
+    public function testThrowExceptionAfterBookTicketWhenSessionHasNoFreeTickets(): void
     {
         $client = $this->getClient();
         $session = $this->getSessionWithoutFreeTickets();
